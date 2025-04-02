@@ -121,10 +121,33 @@ exports.Prisma.PostScalarFieldEnum = {
   id: 'id',
   title: 'title',
   content: 'content',
-  authorName: 'authorName',
+  authorId: 'authorId',
   published: 'published',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  role: 'role'
+};
+
+exports.Prisma.ProfileScalarFieldEnum = {
+  id: 'id',
+  bio: 'bio',
+  userId: 'userId'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.PostCategoryScalarFieldEnum = {
+  postId: 'postId',
+  categoryId: 'categoryId'
 };
 
 exports.Prisma.SortOrder = {
@@ -141,10 +164,17 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.userRole = exports.$Enums.userRole = {
+  user: 'user',
+  admin: 'admin'
+};
 
 exports.Prisma.ModelName = {
-  Post: 'Post'
+  Post: 'Post',
+  User: 'User',
+  Profile: 'Profile',
+  Category: 'Category',
+  PostCategory: 'PostCategory'
 };
 
 /**

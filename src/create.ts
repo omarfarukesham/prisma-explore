@@ -1,57 +1,73 @@
-import { PrismaClient } from "../generated/prisma";
+import { PrismaClient, userRole } from "../generated/prisma";
 
 const prisma = new PrismaClient();
 
 const main =async () =>{
     //find all
-    const createMany = await prisma.post.createMany({
-        data: [
-            {
-                title: "Prisma post -1",
-                content: "No worries a lot of possibilities of prisma World!",
-                authorName: "prisma author1"
-            },
-            {
-                title: "Prisma post -2",
-                content: "Another interesting post",
-                authorName: "prisma author2"
-            },
-            {
-                title: "title -2",
-                content: "No worries a lot of possibilities of prisma World!",
-                authorName: "prisma author3"
-            },
-            {
-                title: "Title -2",
-                content: "Another interesting post",
-                authorName: "prisma author3"
-            },
-            {
-                title: "title -3",
-                content: "No worries a lot of possibilities of prisma World!",
-                authorName: "prisma author4"
-            },
-            {
-                title: "Prisma -3",
-                content: "Another interesting post",
-                authorName: "prisma author5"
-            },
-            {
-                title: "Prisma -3",
-                content: "No worries a lot of possibilities of prisma World!",
-                authorName: "prisma author6"
-            },
-            {
-                title: "Prisma -4",
-                content: "Another interesting post",
-                authorName: "prisma author7"
+    // const createMany = await prisma.user.createMany({
+    //     data: [
+    //         {
+    //             name: "user1",
+    //             email: "user1@gmail.com",
+    //             role: userRole.user
+    //         },
+    //         {
+    //             name: "user2",
+    //             email: "user2@gmail.com",
+    //             role: userRole.user
+    //         }
+           
+    //     ]
+    // })
+
+
+    // const createProfile = await prisma.profile.create({
+    //     data: {
+    //         userId: 2,
+    //         bio: "test bio 2",
+    //     }
+    // })
+
+    // const createCategory = await prisma.category.createMany({
+    //     data:[
+    //         {
+    //         name: "javascript",
+    //         },
+    //         {
+    //             name: "typescript",
+    //         },
+    //         {
+    //             name: "react",
+    //         },
+    //         {
+    //             name: "graphql",
+    //         },
+    //         {
+    //             name: "node",
+    //         }
+    // ]
+    // })
+
+    const createPost = await prisma.post.create({
+        data:
+        {
+            title: "post1",
+            content: "NOde js is now getting much popular around the world ... ",
+            authorId: 1,
+            postCategory: {
+               create:{
+                    category:{
+                        connect: {
+                            id: 1
+                        }
+                    }
+               }
             }
-        ]
-    })
+        }
+      
 
+})
 
-    console.log(createMany)
-
+console.log(createPost)
 }
-
 main()

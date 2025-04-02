@@ -15,13 +15,57 @@ datasource db {
 }
 
 model Post {
-  id         Int      @id @default(autoincrement())
-  title      String   @db.VarChar(255)
-  content    String
-  authorName String?
-  published  Boolean  @default(false)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id           Int            @id @default(autoincrement())
+  title        String         @db.VarChar(255)
+  content      String
+  authorId     Int
+  author       User           @relation(fields: [authorId], references: [id])
+  postCategory PostCategory[]
+
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("posts")
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  name    String   @db.VarChar(255)
+  email   String   @unique
+  role    userRole @default(user)
+  Profile Profile? //one to one realtion with Profile
+  post    Post[] //one to many relation
+
+  @@map("users")
+}
+
+model Profile {
+  id     Int     @id @default(autoincrement())
+  bio    String?
+  userId Int     @unique
+  user   User    @relation(fields: [userId], references: [id])
+}
+
+model Category {
+  id           Int            @id @default(autoincrement())
+  postCategory PostCategory[]
+  name         String         @db.VarChar(255)
+}
+
+//many to many relation need another intermediate category for 
+model PostCategory {
+  postId     Int
+  post       Post     @relation(fields: [postId], references: [id])
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  //composition id for helping connect with category and category ... 
+  @@id([postId, categoryId])
+  @@map("post_category")
+}
+
+enum userRole {
+  user
+  admin
 }
